@@ -25,7 +25,7 @@ class ParentComponent extends React.Component {
     }
 
     deleteTaskHandler = id => {
-        console.log(id);
+        this.setState({tasks:this.state.tasks.filter(task => task.id!=id)});
     }
 
   render() {
@@ -39,12 +39,8 @@ class ParentComponent extends React.Component {
               </div>
           </div>
           <div className='tasksContainer'>
-              {this.state.tasks.map(val => (<Task key={val.id} taskName={val.title} />))}
+              {this.state.tasks.map(val => (<Task key={val.id} taskName={val.title} idValue={val.id} onDelete={this.deleteTaskHandler} />))}
           </div>
-          {/* <div className='tasksContainer'>
-          <Task key="0" taskName="Hello" />
-          <Task key="1" taskName="There" />
-          </div> */}
       </div>
     )
   }

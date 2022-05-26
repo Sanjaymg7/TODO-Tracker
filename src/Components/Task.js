@@ -10,7 +10,7 @@ class Task extends React.Component {
       <div className='taskPannel'>
           <h3>{this.props.taskName}</h3>
           <button className='btnEdit'>Edit</button>
-          <button className='btnDelete'>Delete</button>
+          <button className='btnDelete' onClick={e=>this.props.onDelete(this.props.idValue)}>Delete</button>
       </div>
     )
   }
