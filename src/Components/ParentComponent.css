@@ -1,0 +1,17 @@
+.inputContainer{
+    background-color: #fff;
+    padding: 4em;
+}
+.header{
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 1em;
+}
+.tasksContainer{
+    width: 60%;
+    margin: 1em auto;
+}
+.inputWrapper{
+    width: 80%;
+    margin: 0 auto;
+}

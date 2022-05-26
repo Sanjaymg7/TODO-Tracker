@@ -1,4 +1,5 @@
 import React from 'react'
+import './AddButton.css'
 
 class AddButton extends React.Component {
     constructor(props){
@@ -6,7 +7,7 @@ class AddButton extends React.Component {
     }
   render() {
     return (
-      <button onClick={this.props.onAddClick}>ADD</button>
+      <button className='taskAddBtn' onClick={this.props.onAddClick}>ADD</button>
     )
   }
 }

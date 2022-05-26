@@ -1,9 +1,17 @@
 import React from 'react'
+import './Task.css'
 
 class Task extends React.Component {
+    constructor(props){
+        super(props);
+    }
   render() {
     return (
-      <div>Task</div>
+      <div className='taskPannel'>
+          <h3>{this.props.taskName}</h3>
+          <button className='btnEdit'>Edit</button>
+          <button className='btnDelete'>Delete</button>
+      </div>
     )
   }
 }
