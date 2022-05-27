@@ -20,8 +20,8 @@ class Task extends React.Component {
       <div className="taskPannel">
         <h3>{this.props.taskName}</h3>
         <AddButton
-          onAddClick={this.taskUpdate}
-          btnValue="Edit"
+          onAddClick={this.props.didUpdated? ()=>{} : this.taskUpdate}
+          btnValue={this.props.didUpdated? 'Updated' :'Edit'}
           btnClass="btnEdit"
         />
         <AddButton

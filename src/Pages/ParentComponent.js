@@ -9,10 +9,8 @@ class ParentComponent extends React.Component {
     super();
     // this.state = this.initialState;
     this.state = JSON.parse(window.localStorage.getItem('todoList')) || {
-      tasks: [], inputTask: "", idVal: 0, updation: false
+      tasks: [], inputTask: "", idVal: 0, updation: false, updateId:0
     }
-    console.log("from parent constructor")
-    console.log(this.state);
   }
 
   inputHandler = (val) => {
@@ -39,46 +37,51 @@ class ParentComponent extends React.Component {
     window.localStorage.setItem('todoList', JSON.stringify({tasks:this.state.tasks.filter((task) => task.id != id), inputTask:this.state.inputTask, idVal:this.state.idVal,'updation':this.state.updation}));
   };
 
-  updateHandler = (id) => {
-    const updateTaskName = prompt("Please provide the task name!");
-    if (updateTaskName != null) {
-      if (updateTaskName.trim() !== "") {
-        this.state.tasks.filter((task) => task.id == id)[0]["title"] =
-          updateTaskName;
-          this.setState({ updated: true });
-          // window.localStorage.setItem('todoList', JSON.stringify(this.state));
-          console.log(this.state);
-      } else {
-        alert("Please provide valid task name");
-      }
-    }
+  editHandler = (id) => {
+    this.setState({updation:true, updateId:id});
+    const updateTaskTitle = this.state.tasks.filter((task) => task.id == id)[0]["title"];
+    this.setState({inputTask:updateTaskTitle});
   };
+
+  updateHandler = () => {
+    const taskId = this.state.updateId;
+    const updateTaskName = this.state.inputTask;
+    if (updateTaskName.trim() !== "") {
+          this.state.tasks.filter((task) => task.id == taskId)[0]["title"] =updateTaskName;
+          this.state.tasks.filter((task) => task.id == taskId)[0]["isUpdated"] =true;
+          this.setState({ updation: false, updateId:0,inputTask: '' });
+          window.localStorage.setItem('todoList', JSON.stringify(this.state));
+        } else {
+          alert("Please provide valid task name");
+        }
+  }
 
   render() {
     return (
       <div>
         <div className="inputContainer">
-          <h1 className="header">{this.updation? 'EDIT TODO' : 'TODO LIST'}</h1>
+          <h1 className="header">{this.state.updation? 'EDIT TODO' : 'TODO LIST'}</h1>
           <div className="inputWrapper">
             <TaskInput
               onFieldChange={this.inputHandler}
               fieldVal={this.state.inputTask}
             />
             <AddButton
-              onAddClick={this.addHandler}
-              btnValue="Add"
-              btnClass="taskAddBtn"
+              onAddClick={this.state.updation? this.updateHandler : this.addHandler}
+              btnValue={this.state.updation? 'Update' :'Add'}
+              btnClass={this.state.updation? 'taskUpdateBtn' : 'taskAddBtn'}
             />
           </div>
         </div>
         <div className="tasksContainer">
-          {this.state.inputTask == ""
+          {this.state.updation? '' :this.state.inputTask == ""
             ? this.state.tasks.map((val) => (
                 <Task
                   key={val.id}
                   taskName={val.title}
                   idValue={val.id}
-                  onUpdate={this.updateHandler}
+                  didUpdated={val.isUpdated}
+                  onUpdate={this.editHandler}
                   onDelete={this.deleteTaskHandler}
                 />
               ))
@@ -89,7 +92,8 @@ class ParentComponent extends React.Component {
                     key={val.id}
                     taskName={val.title}
                     idValue={val.id}
-                    onUpdate={this.updateHandler}
+                    didUpdated={val.isUpdated}
+                    onUpdate={this.editHandler}
                     onDelete={this.deleteTaskHandler}
                   />
                 ))}
