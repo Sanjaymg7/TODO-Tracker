@@ -1,6 +1,14 @@
-.inputField{
-    padding: 0.7em 1em;
-    margin: 0em 5em;
-    width: 70%;
-    border: 0.2em solid #b4b4b4;
+.inputField {
+  padding: 0.7em 1em;
+  margin: 0em 5em;
+  width: 70%;
+  border: 0.2em solid #b4b4b4;
+}
+.updateInput {
+  display: block;
+  padding: 0.7em 1em;
+  margin: 0.5em 0.2em;
+  width: 30%;
+  margin: 0em auto;
+  border: 0.2em solid #b4b4b4;
 }

@@ -1,10 +1,11 @@
 import React from "react";
-import "./ParentComponent.css";
+import { useNavigate } from "react-router-dom";
+import "./TodoApp.css";
 import AddButton from "../Components/AddButton";
 import Task from "../Components/Task";
 import TaskInput from "../Components/TaskInput";
 
-class ParentComponent extends React.Component {
+class TodoApp extends React.Component {
   constructor() {
     super();
     // this.state = this.initialState;
@@ -57,56 +58,39 @@ class ParentComponent extends React.Component {
       "title"
     ];
     this.setState({ inputTask: updateTaskTitle });
-  };
-
-  updateHandler = () => {
-    const taskId = this.state.updateId;
-    const updateTaskName = this.state.inputTask;
-    if (updateTaskName.trim() !== "") {
-      this.state.tasks.filter((task) => task.id == taskId)[0]["title"] =
-        updateTaskName;
-      this.state.tasks.filter((task) => task.id == taskId)[0][
-        "isUpdated"
-      ] = true;
-      const updatedState = {
+    window.localStorage.setItem(
+      "todoList",
+      JSON.stringify({
         tasks: this.state.tasks,
-        inputTask: "",
+        inputTask: updateTaskTitle,
         idVal: this.state.idVal,
-        updation: false,
-        updateId: 0,
-      };
-      this.setState({ updation: false, updateId: 0, inputTask: "" });
-      window.localStorage.setItem("todoList", JSON.stringify(updatedState));
-    } else {
-      alert("Please provide valid task name");
-    }
+        updation: true,
+        updateId: id,
+      })
+    );
+    window.location = `/update`;
   };
 
   render() {
     return (
       <div>
         <div className="inputContainer">
-          <h1 className="header">
-            {this.state.updation ? "EDIT TODO" : "TODO LIST"}
-          </h1>
+          <h1 className="header">{"TODO LIST"}</h1>
           <div className="inputWrapper">
             <TaskInput
               onFieldChange={this.inputHandler}
               fieldVal={this.state.inputTask}
+              className={"inputField"}
             />
             <AddButton
-              onAddClick={
-                this.state.updation ? this.updateHandler : this.addHandler
-              }
-              btnValue={this.state.updation ? "Update" : "Add"}
-              btnClass={this.state.updation ? "taskUpdateBtn" : "taskAddBtn"}
+              onAddClick={this.addHandler}
+              btnValue={"Add"}
+              btnClass={"taskAddBtn"}
             />
           </div>
         </div>
         <div className="tasksContainer">
-          {this.state.updation
-            ? ""
-            : this.state.inputTask == ""
+          {this.state.inputTask == ""
             ? this.state.tasks.map((val) =>
                 new Date(val.created).getDate() < new Date().getDate() ? (
                   ""
@@ -143,4 +127,4 @@ class ParentComponent extends React.Component {
   }
 }
 
-export default ParentComponent;
+export default TodoApp;

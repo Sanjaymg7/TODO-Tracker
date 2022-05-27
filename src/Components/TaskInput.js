@@ -9,7 +9,7 @@ class TaskInput extends React.Component {
     return (
       <input
         type="text"
-        className="inputField"
+        className={this.props.className}
         value={this.props.fieldVal}
         onChange={(e) => this.props.onFieldChange(e.target.value)}
       />
