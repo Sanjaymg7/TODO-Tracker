@@ -1,6 +1,7 @@
 import React from "react";
-import TaskInput from "../Components/TaskInput";
-import AddButton from "../Components/AddButton";
+import TaskInput from "../Components/Input";
+import AddButton from "../Components/Button";
+import Form from "../Components/Form";
 import "./Update.css";
 
 class Update extends React.Component {
@@ -18,7 +19,7 @@ class Update extends React.Component {
     const updateTaskName = this.state.inputTask;
     if (updateTaskName.trim() !== "") {
       this.state.tasks.filter((task) => task.id == taskId)[0]["title"] =
-        updateTaskName;
+        updateTaskName.trim();
       this.state.tasks.filter((task) => task.id == taskId)[0][
         "isUpdated"
       ] = true;
@@ -37,12 +38,21 @@ class Update extends React.Component {
     }
   };
 
+  updateTodo = {
+    onFieldChange: this.inputHandler,
+    className: "updateInput",
+    onAddClick: this.updateHandler,
+    btnValue: "Update",
+    btnClass: "taskUpdateBtn",
+  };
+
   render() {
     return (
       <div>
         <h1 className="updateHeading">Update Task</h1>
         <div className="inputArea">
-          <TaskInput
+          <Form formData={this.updateTodo} fieldVal={this.state.inputTask} />
+          {/* <TaskInput
             onFieldChange={this.inputHandler}
             fieldVal={this.state.inputTask}
             className={"updateInput"}
@@ -51,7 +61,7 @@ class Update extends React.Component {
             onAddClick={this.updateHandler}
             btnValue={"Update"}
             btnClass={"taskUpdateBtn"}
-          />
+          /> */}
         </div>
       </div>
     );

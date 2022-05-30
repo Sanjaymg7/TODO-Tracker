@@ -1,6 +1,6 @@
 import React from "react";
 import "./Task.css";
-import AddButton from "./AddButton";
+import AddButton from "./Button";
 
 class Task extends React.Component {
   constructor(props) {
@@ -29,8 +29,6 @@ class Task extends React.Component {
           btnValue="Delete"
           btnClass="btnDelete"
         />
-        {/* <button className='btnEdit'>Edit</button> */}
-        {/* <button className='btnDelete' onClick={e=>this.props.onDelete(this.props.idValue)}>Delete</button> */}
       </div>
     );
   }

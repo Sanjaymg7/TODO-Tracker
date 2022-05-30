@@ -1,7 +1,7 @@
 import React from "react";
 import "./TaskInput.css";
 
-class TaskInput extends React.Component {
+class Input extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -17,4 +17,4 @@ class TaskInput extends React.Component {
   }
 }
 
-export default TaskInput;
+export default Input;

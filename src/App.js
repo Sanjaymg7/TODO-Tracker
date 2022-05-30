@@ -8,10 +8,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" component={TodoApp} />
-          <Route path="/update" component={Update} /> */}
           <Route path="/" element={<TodoApp />}></Route>
-          <Route path="/update" element={<Update />}></Route>
+          <Route path="update" element={<Update />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
