@@ -1,12 +1,11 @@
 import React from "react";
-import TaskInput from "../Components/Input";
-import AddButton from "../Components/Button";
+import history from "./../history";
 import Form from "../Components/Form";
 import "./Update.css";
 
 class Update extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = JSON.parse(window.localStorage.getItem("todoList"));
   }
 
@@ -32,7 +31,9 @@ class Update extends React.Component {
       };
       this.setState({ updation: false, updateId: 0, inputTask: "" });
       window.localStorage.setItem("todoList", JSON.stringify(updatedState));
-      window.location = `/`;
+      // window.location = `/`;
+      history.push("/");
+      history.go(0);
     } else {
       alert("Please provide valid task name");
     }
@@ -52,16 +53,6 @@ class Update extends React.Component {
         <h1 className="updateHeading">Update Task</h1>
         <div className="inputArea">
           <Form formData={this.updateTodo} fieldVal={this.state.inputTask} />
-          {/* <TaskInput
-            onFieldChange={this.inputHandler}
-            fieldVal={this.state.inputTask}
-            className={"updateInput"}
-          />
-          <AddButton
-            onAddClick={this.updateHandler}
-            btnValue={"Update"}
-            btnClass={"taskUpdateBtn"}
-          /> */}
         </div>
       </div>
     );

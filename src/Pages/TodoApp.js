@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import history from "./../history";
 import "./TodoApp.css";
 import Task from "../Components/Task";
 import Form from "../Components/Form";
@@ -67,7 +67,9 @@ class TodoApp extends React.Component {
         updateId: id,
       })
     );
-    window.location = `/update`;
+    // window.location = `/update`;
+    history.push("update");
+    history.go(0);
   };
 
   todoInput = {
