@@ -1,5 +1,5 @@
 import React from "react";
-import history from "./../history";
+import { createBrowserHistory as history } from "history";
 import Form from "../Components/Form";
 import "./Update.css";
 
@@ -14,6 +14,7 @@ class Update extends React.Component {
   };
 
   updateHandler = () => {
+    const historyObj = history();
     const taskId = this.state.updateId;
     const updateTaskName = this.state.inputTask;
     if (updateTaskName.trim() !== "") {
@@ -32,8 +33,8 @@ class Update extends React.Component {
       this.setState({ updation: false, updateId: 0, inputTask: "" });
       window.localStorage.setItem("todoList", JSON.stringify(updatedState));
       // window.location = `/`;
-      history.push("/");
-      history.go(0);
+      historyObj.push("/");
+      historyObj.go();
     } else {
       alert("Please provide valid task name");
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import history from "./../history";
+import { createBrowserHistory as history } from "history";
 import "./TodoApp.css";
 import Task from "../Components/Task";
 import Form from "../Components/Form";
@@ -52,6 +52,7 @@ class TodoApp extends React.Component {
   };
 
   editHandler = (id) => {
+    const historyObj = history();
     this.setState({ updation: true, updateId: id });
     const updateTaskTitle = this.state.tasks.filter((task) => task.id == id)[0][
       "title"
@@ -68,8 +69,8 @@ class TodoApp extends React.Component {
       })
     );
     // window.location = `/update`;
-    history.push("update");
-    history.go(0);
+    historyObj.push("update");
+    historyObj.go(); //Reloads the page
   };
 
   todoInput = {
@@ -84,7 +85,7 @@ class TodoApp extends React.Component {
     return (
       <div>
         <div className="inputContainer">
-          <h1 className="header">{"TODO LIST"}</h1>
+          <h1 className="header">TODO LIST</h1>
           <div className="inputWrapper">
             <Form formData={this.todoInput} fieldVal={this.state.inputTask} />
           </div>
